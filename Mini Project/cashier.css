@@ -1,0 +1,123 @@
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.navbar{
+    height: 10%;
+    display: flex;
+    background-color: green;
+    width: 100%;
+    gap: 5px;
+}
+
+.navbar div{
+    width: fit-content;
+    border-radius: 5px 5px 0px 0px;
+    padding: 2px;
+    margin-bottom: 0px;
+}
+
+a{
+    text-decoration: none;
+}
+
+.cashier{
+    background-color: #382922;
+    color: white;
+}
+
+.inventory{
+    background-color: azure;
+}
+
+.cashierHeader{
+    background-color: #382922;
+    color: white;
+    width: 100%;
+}
+
+.cashierContainer{
+    height: 100%;
+    display: flex;
+    flex-direction:column ;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.cashierMiddleTop{
+    background-color: #81d1a4;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.cashierMiddleTop div{
+    display: flex;
+    flex-direction: column;
+}
+
+.cashierMiddleBottom{
+    display: flex;
+    width: 100%;
+    height: max-content;
+}
+
+.left{
+    background-color: #55ab59;
+    width: 30%;
+    padding: 20px;
+    padding-bottom: 100px;
+}
+
+.left p{
+    margin: 0;
+    color: white;
+    font-size: 1.2em;
+}
+
+.left div{
+    display: flex;
+    flex-direction: column;
+    padding: 10px
+}
+
+.right{
+    background-color: #81d1a4;
+    width: 70%;
+}
+
+.cashierTable{
+    display: flex;
+}
+
+.cashierTable div{
+    height: fit-content;
+    width: 100%;
+    background-color: lightgrey;
+    border: 1px solid black;
+}
+
+.netAmount{
+    padding-bottom: 60px;
+}
+
+.cashierBottom{
+    background-color: grey;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 100%;
+    height: 60px;
+}
+
+.cashierBottom button{
+    padding: 5px;
+    border: 1px solid black;
+}
