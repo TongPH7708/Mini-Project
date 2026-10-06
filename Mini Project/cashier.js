@@ -1,6 +1,6 @@
-let test = document.querySelector(".item-identifier");
+let cashierFill = document.querySelector(".item-identifier");
 
-test.addEventListener("keydown", function(insert){
+cashierFill.addEventListener("keydown", function(insert){
     if(insert.code === "Enter"){
         
     }

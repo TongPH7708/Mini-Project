@@ -24,12 +24,12 @@ CREATE TABLE users (
     role VARCHAR(50)
 );
 
-
 CREATE TABLE products (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL UNIQUE,
     selling_price DECIMAL(10,2),
     category VARCHAR(255) NOT NULL,
+    quantity INT NOT NULL DEFAULT 0,
     storage_id INT NOT NULL,
     supplier_id INT NOT NULL,
     FOREIGN KEY (storage_id) REFERENCES storage(id),

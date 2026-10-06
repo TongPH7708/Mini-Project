@@ -39,3 +39,53 @@ a{
     color: white;
     width: 100%;   
 }
+
+.middle{
+    width: 100%;
+    display: flex;
+}
+
+.middleLeft{
+    width: 15%;
+}
+
+.sortList{
+    display: flex;
+    flex-direction: column;
+}
+
+.middleRight{
+    width: 75%;
+}
+
+.toolBar{
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    background-color: darkgreen;
+}
+
+.toolBar button{
+    background-color: green;
+    color: white;
+}
+
+.productTopRow{
+    display: flex;
+    justify-content: space-around;
+}
+
+.productTopRow div{
+    width: 100%;
+    border: 1px solid black;
+}
+
+.productRow{
+    display: flex;
+    justify-content: space-around;
+}
+
+.productRow div{
+    width: 100%;
+    border: 1px solid black;
+}
