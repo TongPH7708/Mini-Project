@@ -43,10 +43,16 @@ a{
 .middle{
     width: 100%;
     display: flex;
+    gap: 15px;
+    height: 100%;
 }
 
 .middleLeft{
     width: 15%;
+    background-color: #f0f0f0;
+    border: 1px solid lightgrey;
+    border-radius: 15px;
+    margin-top: 20px;
 }
 
 .sortList{
@@ -73,19 +79,24 @@ a{
 .productTopRow{
     display: flex;
     justify-content: space-around;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
 }
 
 .productTopRow div{
     width: 100%;
-    border: 1px solid black;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
 }
 
 .productRow{
     display: flex;
     justify-content: space-around;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
 }
 
 .productRow div{
     width: 100%;
-    border: 1px solid black;
+    border-bottom: 1px solid black;
 }

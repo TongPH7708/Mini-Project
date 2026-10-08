@@ -1,7 +1,20 @@
 <?php
     session_start();
 
-    
+    require_once __DIR__ . '/config/database.php';
+
+$id = $_GET["id"] ?? null;
+
+$stmt = $pdo->prepare("
+    SELECT id, name, selling_price, category, quantity
+    FROM products
+    WHERE id = ?
+");
+
+$stmt->execute([$id]);
+
+$product = $stmt->fetch(PDO::FETCH_ASSOC);
+
     
 ?>
 <!DOCTYPE html>
@@ -35,21 +48,21 @@
             </div>
             <div>
                 <label for="Item No.">Item No.</label>
-                <input type="number" class="item-identifier">
+                <input type="number" id="item-identifier">
 
             </div>
             <div id="description">
                 <label for="Description">Description</label>
-                <input type="text" class="item-identifier">
                 <input type="text">
+                <input type="text" id="item-name">
             </div>
             <div id="quantity">
                 <label for="Quantity">Quantity</label>
-                <input type="number">
+                <input type="number" id="item-quantity">
             </div>
             <div id="price">
                 <label for="Price">Price</label>
-                <input type="number">
+                <input type="number" id="item-price">
             </div>
         </div>
         <div class="cashierMiddleBottom">

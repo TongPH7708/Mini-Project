@@ -14,7 +14,8 @@
    ];
 
    $orderBy = $sortOptions[$sort] ?? $sortOptions['id_asc']; 
-   $stmt = $pdo->query("SELECT * FROM products ORDER BY $orderBy"); $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+   $stmt = $pdo->query("SELECT * FROM products ORDER BY $orderBy"); 
+   $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
    
 
@@ -43,11 +44,6 @@
     </div>
     <div class="header">
         <h1>Inventory and Stock Management</h1>
-    </div>
-    <div class="toolBar">
-        <div><button>Create Aging Report</button></div>
-        <div><button>Order More Stock</button></div>
-        <div><button>View Storage</button></div>
     </div>
     <div class="middle">
         <div class="middleLeft">
