@@ -1,21 +1,56 @@
 <?php
-    session_start();
 
-    require_once __DIR__ . '/config/database.php';
+session_start();
 
-$id = $_GET["id"] ?? null;
+require_once __DIR__ . '/config/database.php';
 
-$stmt = $pdo->prepare("
-    SELECT id, name, selling_price, category, quantity
-    FROM products
-    WHERE id = ?
-");
+function isUser()
+{ if(isset($_SESSION['user'])){
+    if($_SESSION ['user']['role'] === 'admin' ||
+       $_SESSION ['user']['role'] === 'editor' ||
+       $_SESSION ['user']['role'] === 'user' ){
+        return true;
+       }
+}
 
-$stmt->execute([$id]);
+return false;
+}
 
-$product = $stmt->fetch(PDO::FETCH_ASSOC);
+if( !isUser()){
+    header('Location: login.php');
+    exit;
+ }
 
-    
+if (isset($_GET['id'])) {
+
+    $id = $_GET['id'];
+
+    $stmt = $pdo->prepare("
+        SELECT id, name, selling_price, quantity
+        FROM products
+        WHERE id = ?
+    ");
+
+    $stmt->execute([$id]);
+
+    $product = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    header('Content-Type: application/json');
+
+    if ($product) {
+        echo json_encode([
+            'success' => true,
+            'product' => $product
+        ]);
+    } else {
+        echo json_encode([
+            'success' => false,
+            'message' => 'Product not found'
+        ]);
+    }
+
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,13 +63,18 @@ $product = $stmt->fetch(PDO::FETCH_ASSOC);
 <body>
     <div class="navbar">
         <a href="cashier.php">
-            <div class="cashier">
+            <div class="current">
                 <p>Cashier</p>
             </div>
         </a>
         <a href="inventory.php">
-            <div class="inventory">
+            <div class="notCurrent">
                 <p>Inventory</p>
+            </div>
+        </a>
+        <a href="admin/dashboard.php">
+            <div class="notCurrent">
+                <p>Admin</p>
             </div>
         </a>
     </div>
@@ -44,17 +84,14 @@ $product = $stmt->fetch(PDO::FETCH_ASSOC);
         </div>
         <div class="cashierMiddleTop">
             <div>
-                <h1>Date</h1>
-            </div>
-            <div>
                 <label for="Item No.">Item No.</label>
                 <input type="number" id="item-identifier">
 
             </div>
             <div id="description">
                 <label for="Description">Description</label>
-                <input type="text">
                 <input type="text" id="item-name">
+                <input type="text">
             </div>
             <div id="quantity">
                 <label for="Quantity">Quantity</label>
@@ -66,30 +103,6 @@ $product = $stmt->fetch(PDO::FETCH_ASSOC);
             </div>
         </div>
         <div class="cashierMiddleBottom">
-            <div class="left">
-                <p>Sub-Amount</p>
-                <p>Tax Amount</p>
-
-                <div>
-                    <label for="discount">Discount</label>
-                    <input type="number">
-                </div>
-                <div>
-                    <label>Sales Tax</label>
-                    <input type="number">
-                </div>
-                <div>
-                    <label>Service Charge</label>
-                    <input type="number">
-                </div>
-                <div>
-                    <label>Rounding</label>
-                    <input type="number">
-                </div>
-
-                <p class="netAmount">Net Amount</p>
-            </div>
-
             <div class="right">
                 <div class="cashierTable">
                     <div><p>Item No</p></div>
@@ -98,16 +111,20 @@ $product = $stmt->fetch(PDO::FETCH_ASSOC);
                     <div><p>Price</p></div>
                     <div><p>Amount</p></div>
                 </div>
-                <div>
+                <div id="cashierList">
                     
                 </div>
-
-            
+                <div class=finalRow>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div class="total"><p>Total:</p></div>
+                    <div id="grandTotal"></div>
+                </div>
             </div>
         </div>
         <div class="cashierBottom">
-            <button>Payment</button>
-            <button>Print Receipt(F7)</button>
+            <button id="refresh">End Transaction</button>
         </div>       
     </div>
 </body>

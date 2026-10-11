@@ -26,7 +26,7 @@ a{
 }
 
 .inventory{
-    background-color: darkgreen;
+    background-color: #391C10;
     color: white;
 }
 
@@ -35,7 +35,7 @@ a{
 }
 
 .header{
-    background-color: darkgreen;
+    background-color: #391C10;
     color: white;
     width: 100%;   
 }
@@ -47,12 +47,28 @@ a{
     height: 100%;
 }
 
+.title{
+    display: flex;
+    justify-content: space-between;
+}
+
+#searchBar{
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    margin-top: 20px;
+}
+
 .middleLeft{
     width: 15%;
-    background-color: #f0f0f0;
+    background-color: #F7EFE0;
     border: 1px solid lightgrey;
     border-radius: 15px;
     margin-top: 20px;
+    position: sticky;
+    height: fit-content;
+    margin-left: 20px;
+    padding: 15px;
 }
 
 .sortList{
@@ -64,29 +80,23 @@ a{
     width: 75%;
 }
 
-.toolBar{
-    display: flex;
-    gap: 10px;
-    width: 100%;
-    background-color: darkgreen;
-}
-
-.toolBar button{
-    background-color: green;
-    color: white;
-}
-
 .productTopRow{
     display: flex;
     justify-content: space-around;
     border-left: 1px solid black;
     border-right: 1px solid black;
+    background-color: #F7CAC9;
 }
+
 
 .productTopRow div{
     width: 100%;
     border-top: 1px solid black;
     border-bottom: 1px solid black;
+}
+
+.productTopRow div p{
+    padding-left: 10px;
 }
 
 .productRow{
@@ -99,4 +109,17 @@ a{
 .productRow div{
     width: 100%;
     border-bottom: 1px solid black;
+}
+
+.productRow div input{
+    width: 50%;
+    margin-top: 15px;
+}
+
+.productRow div button{
+    margin-top: 15px;
+}
+
+.productRow div p{
+    padding-left: 10px;
 }

@@ -5,32 +5,36 @@
 
     $error = '';
 
-    if($_SERVER['REQUEST_METHOD'] === 'POST'){
-        $email =$_POST['email'];
-        $password =$_POST['password'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email    = $_POST['email'];
+    $password = $_POST['password'];
 
-        if(empty($email) || empty($password)){
-            echo "Please enter your email or password";
-            exit;
-        } 
     
+    $statement = $pdo -> prepare('SELECT * FROM users WHERE email = :email');
+    $statement -> execute ([':email' => $email]);
+    $user =$statement -> fetch(PDO::FETCH_OBJ);
 
-        $statement = $pdo -> prepare('SELECT * FROM users WHERE email= :email');
-        $statement -> execute([':email'=>$email]);
-        $user =$statement ->fetch(PDO::FETCH_OBJ);
+    
+        if($user && password_verify($password, $user -> password)){
 
-        if($user &&password_verify($password, $user ->password)){
-            $_SESSION['authenticated']=true;
-            $_SESSION['email']= $user -> email;
-            header('Location:cashier.php');
-            exit;
-        }else{
-            $error = 'Wrong Email or Password.';
+    
+        $_SESSION['authenticated']=true;
+        $_SESSION['user'] = [
+            'id'    => $user -> id,
+            'email' => $user -> email,
+            'role'  => $user -> role,
+        ];
+
+    
+        header('Location: cashier.php');
+        exit;
+        } else {
+    
+        $error = 'Something is wrong. Please try again.';
         }
-
-    }
-
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -38,7 +42,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="registerPage.css">
 </head>
 <body>
     

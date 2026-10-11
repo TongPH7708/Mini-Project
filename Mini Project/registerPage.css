@@ -1,0 +1,76 @@
+body{
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+}
+
+.loginCard{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 20px;
+    border: 1px solid black;
+    border-radius: 15px;
+    box-shadow: 5px 5px 10px lightgray;
+}
+
+.loginCard h1{
+    margin: 0;  
+}
+
+.loginCard button{
+    background-color: black;
+    color: white;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.loginForm{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.loginInput{
+    display: flex;
+    flex-direction: column;
+    font-size: 1.5em;
+}
+
+.loginInput input{
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid black;
+    width: 95%;
+}
+
+.registerCard{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 20px;
+    border: 1px solid black;
+    border-radius: 15px;
+    box-shadow: 5px 5px 10px lightgray;
+}
+
+.registerInput{
+    display: flex;
+    flex-direction: column;
+}
+
+.registerInput input{
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid black;
+    width: 95%;
+}

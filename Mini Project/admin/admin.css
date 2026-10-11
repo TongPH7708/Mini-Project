@@ -1,0 +1,188 @@
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.navbar{
+    height: 10%;
+    display: flex;
+    background-color: green;
+    width: 100%;
+    gap: 5px;
+}
+
+.navbar div{
+    width: fit-content;
+    border-radius: 5px 5px 0px 0px;
+    padding: 2px;
+    margin-bottom: 0px;
+}
+
+a{
+    text-decoration: none;
+}
+
+.current{
+    background-color: #391C10;
+    color: white;
+}
+
+.notCurrent{
+    background-color: azure;
+}
+
+.header{
+    background-color: #391C10;
+    color: white;
+    width: 100%;   
+}
+
+.title{
+    display: flex;
+    justify-content: space-between;
+}
+
+#searchBar{
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    margin-top: 20px;
+}
+
+.content{
+    width: 100%;
+    display: flex;
+    gap: 25px;
+    height: 100%;
+}
+
+.middle{
+    width: 100%;
+    display: flex;
+    gap: 5px;
+    height: 100%;
+}
+
+.sideNav{
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+    height: 86vh;
+    justify-content: space-around;
+}
+
+.sideNav a{
+    color: yellow;
+    text-decoration: none;
+}
+
+.contentLeft{
+    width: 15%;
+    height: fit-content;
+    background-color: #F7EFE0;
+    border: 1px solid lightgrey;
+    border-radius: 15px;
+    margin-top: 20px;
+    position: sticky;
+    padding: 15px;
+}
+
+.addProducts{
+    background-color: #391C10;
+    color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 15px;
+}
+
+.sortList{
+    display: flex;
+    flex-direction: column;
+}
+
+.contentRight{
+    width: 75%;
+}
+
+.productTopRow{
+    display: flex;
+    justify-content: space-around;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    background-color: #F7CAC9;
+}
+
+.productTopRow div{
+    width: 100%;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.productTopRow div p{
+    padding-left: 10px;
+}
+
+.productRow{
+    display: flex;
+    justify-content: space-around;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+
+.productRow div{
+    width: 100%;
+    border-bottom: 1px solid black;
+}
+
+.productRow div p{
+    padding-left: 10px;
+}
+
+.productRow div input{
+    width: 50%;
+    margin-top: 15px;
+}
+
+.productRow div button{
+    margin-top: 15px;
+}
+
+.remove{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.remove button{
+    height: fit-content;
+    width: fit-content;
+    background-color: red;
+    color: white;
+    margin-top: none !important;
+    font-weight: bold;
+    border: 1px solid red;
+}
+
+.list{
+    background-color: #f0f0f0;
+    border: 1px solid lightgray;
+    border-radius: 15px;
+    padding: 20px;
+    width: 800px;
+    display: flex;
+    flex-direction: column;
+}
+
+.list div{
+    width: 100%;
+    display: flex;
+}
+
+
+.warningPage{
+    position: relative;
+    
+}
