@@ -3,6 +3,11 @@
 
     require_once __DIR__ . '/config/database.php';
 
+    function isGuest()
+    { 
+    return ! isset ($_SESSION['user']);
+    }
+
     function isEditor()
     { if(isset($_SESSION['user'])){
     if($_SESSION ['user']['role'] === 'admin' ||
@@ -29,16 +34,16 @@
    'id_asc' => 'id ASC', 
    ];
 
-   $orderBy = $sortOptions[$sort] ?? $sortOptions['products.id_asc']; 
+   $orderBy = $sortOptions[$sort] ?? $sortOptions['id_asc']; 
    $stmt = $pdo->query("SELECT products.id, products.name, selling_price, quantity, 
    storage.name AS storage_name, 
    supplier.name AS supplier_name,
    categories.name AS category_name 
    FROM products
-   JOIN supplier_products ON products.id = supplier_products.product_id
-   JOIN supplier ON supplier_products.supplier_id = supplier.id
-   JOIN storage ON products.storage_id = storage.id
-   JOIN categories ON products.category_id = categories.id
+   LEFT JOIN supplier_products ON products.id = supplier_products.product_id
+   LEFT JOIN supplier ON supplier_products.supplier_id = supplier.id
+   LEFT JOIN storage ON products.storage_id = storage.id
+   LEFT JOIN categories ON products.category_id = categories.id
    ORDER BY $orderBy"); 
    $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
    if (isset($_GET['format']) && $_GET['format'] === 'json') {
@@ -81,19 +86,26 @@
 </head>
 <body>
     <div class="navbar">
-        <a href="cashier.php">
-            <div class="cashier">
-                <p>Cashier</p>
-            </div>
-        </a>
-        <a href="inventory.php">
-            <div class="inventory">
-                <p>Inventory</p>
-            </div>
-        </a>
-        <a href="admin/dashboard.php">
-            <div class="cashier">
-                <p>Admin</p>
+        <div>
+            <a href="cashier.php">
+                <div class="cashier">
+                    <p>Cashier</p>
+                </div>
+            </a>
+            <a href="inventory.php">
+                <div class="inventory">
+                    <p>Inventory</p>
+                </div>
+            </a>
+            <a href="admin/dashboard.php">
+                <div class="cashier">
+                    <p>Admin</p>
+                </div>
+            </a>
+        </div>
+        <a href="logout.php">
+            <div class="logout">
+                <p>Logout</p>
             </div>
         </a>
     </div>
@@ -105,7 +117,8 @@
             <div>
                 <h3>Sort by:</h3>
                 <ul class="sortList">
-                    <a href="?sort=category_asc">Category A-Z</a> 
+                    <a href="?sort=category_name_asc">Category A-Z</a>
+                    <a href="?sort=category_name_desc">Category Z-A</a> 
                     <a href="?sort=price_asc">Price (Low to High)</a> 
                     <a href="?sort=price_desc">Price (High to Low)</a> 
                     <a href="?sort=quantity_asc">Quantity (Low to High)</a> 

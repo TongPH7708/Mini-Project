@@ -98,93 +98,93 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Product</title>
-    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="add.css">
 </head>
 <body>
+    <div class="card">
 
-    <h2>Add New Product</h2>
+        <h2>Add New Product</h2>
 
-    <?php if ($error !== ''): ?>
-        <p style="color: red;">
-            <?= htmlspecialchars($error) ?>
-        </p>
-    <?php endif; ?>
+        <?php if ($error !== ''): ?>
+            <p style="color: red;">
+                <?= htmlspecialchars($error) ?>
+            </p>
+        <?php endif; ?>
 
-    <form method="POST">
+        <form method="POST">
 
-        <label for="name">Product Name:</label>
-        <input type="text" id="name" name="name" maxlength="255" required
-            value="<?= htmlspecialchars($_POST['name'] ?? '') ?>">
-        <br><br>
+            <label for="name">Product Name:</label>
+            <input type="text" id="name" name="name" maxlength="255" required
+                value="<?= htmlspecialchars($_POST['name'] ?? '') ?>">
+            <br><br>
 
-        <label for="selling_price">Selling Price:</label>
-        <input type="number" id="selling_price" name="selling_price" min="0" step="0.01" required
-            value="<?= htmlspecialchars($_POST['selling_price'] ?? '') ?>">
-        <br><br>
+            <label for="selling_price">Selling Price:</label>
+            <input type="number" id="selling_price" name="selling_price" min="0" step="0.01" required
+                value="<?= htmlspecialchars($_POST['selling_price'] ?? '') ?>">
+            <br><br>
 
-        <label for="category_id">Category:</label>
-        <select id="category_id" name="category_id" required>
-            <option value="">Select a category</option>
+            <label for="category_id">Category:</label>
+            <select id="category_id" name="category_id" required>
+                <option value="">Select a category</option>
 
-            <?php foreach ($categories as $category): ?>
-                <option
-                    value="<?= (int)$category['id'] ?>"
-                    <?= (string)($_POST['category_id'] ?? '') ===
-                        (string)$category['id'] ? 'selected' : '' ?>
-                >
-                    <?= htmlspecialchars($category['name']) ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-        <br><br>
+                <?php foreach ($categories as $category): ?>
+                    <option
+                        value="<?= (int)$category['id'] ?>"
+                        <?= (string)($_POST['category_id'] ?? '') ===
+                            (string)$category['id'] ? 'selected' : '' ?>
+                    >
+                        <?= htmlspecialchars($category['name']) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+            <br><br>
 
-        <label for="quantity">Initial Quantity:</label>
-        <input type="number" id="quantity" name="quantity" min="0" step="1" required
-            value="<?= htmlspecialchars($_POST['quantity'] ?? '0') ?>">
-        <br><br>
+            <label for="quantity">Initial Quantity:</label>
+            <input type="number" id="quantity" name="quantity" min="0" step="1" required
+                value="<?= htmlspecialchars($_POST['quantity'] ?? '0') ?>">
+            <br><br>
 
-        <label for="storage_id">Storage Location:</label>
-        <select id="storage_id" name="storage_id" required>
-            <option value="">Select storage</option>
+            <label for="storage_id">Storage Location:</label>
+            <select id="storage_id" name="storage_id" required>
+                <option value="">Select storage</option>
 
-            <?php foreach ($storages as $storage): ?>
-                <option
-                    value="<?= (int)$storage['id'] ?>"
-                    <?= (string)($_POST['storage_id'] ?? '') ===
-                        (string)$storage['id'] ? 'selected' : '' ?>
-                >
-                    <?= htmlspecialchars($storage['name']) ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-        <br><br>
+                <?php foreach ($storages as $storage): ?>
+                    <option
+                        value="<?= (int)$storage['id'] ?>"
+                        <?= (string)($_POST['storage_id'] ?? '') ===
+                            (string)$storage['id'] ? 'selected' : '' ?>>
+                        <?= htmlspecialchars($storage['name']) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+            <br><br>
 
-        <h3>Supplier Information (Optional)</h3>
+            <h3>Supplier Information (Optional)</h3>
 
-        <label for="supplier_id">Supplier:</label>
-        <select id="supplier_id" name="supplier_id">
-            <option value="">No supplier selected</option>
+            <label for="supplier_id">Supplier:</label>
+            <select id="supplier_id" name="supplier_id">
+                <option value="">No supplier selected</option>
 
-            <?php foreach ($suppliers as $supplier): ?>
-                <option
-                    value="<?= (int)$supplier['id'] ?>"
-                    <?= (string)($_POST['supplier_id'] ?? '') ===
-                        (string)$supplier['id'] ? 'selected' : '' ?>
-                >
-                    <?= htmlspecialchars($supplier['name']) ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-        <br><br>
+                <?php foreach ($suppliers as $supplier): ?>
+                    <option
+                        value="<?= (int)$supplier['id'] ?>"
+                        <?= (string)($_POST['supplier_id'] ?? '') ===
+                            (string)$supplier['id'] ? 'selected' : '' ?>
+                    >
+                        <?= htmlspecialchars($supplier['name']) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+            <br><br>
 
-        <label for="cost">Supplier Cost:</label>
-        <input type="number" id="cost" name="cost" min="0" step="0.01" value="<?= htmlspecialchars($_POST['cost'] ?? '') ?>">
-        <br><br>
+            <label for="cost">Supplier Cost:</label>
+            <input type="number" id="cost" name="cost" min="0" step="0.01" value="<?= htmlspecialchars($_POST['cost'] ?? '') ?>">
+            <br><br>
 
-        <button type="submit">Save Product</button>
-        <a href="dashboard.php">Cancel</a>
+            <button type="submit">Save Product</button>
+            <a href="dashboard.php">Cancel</a>
 
-    </form>
-
+        </form>
+    </div>
 </body>
 </html>

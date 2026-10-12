@@ -11,7 +11,9 @@ let search = document.getElementById('searchBar');
 
 search.addEventListener("input", function(){
     let searchValue = search.value;
-    let filteredProducts = products.filter( function(product){ return product.name.toLowerCase().includes(searchValue)});
+    let filteredProducts = products.filter(function(product) {
+        return product.name.toLowerCase().includes(searchValue.toLowerCase());
+    });
     console.log(filteredProducts)
 
     let productsGrid = document.querySelector('.productsGrid');

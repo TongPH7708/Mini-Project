@@ -9,16 +9,34 @@ body{
 .navbar{
     height: 10%;
     display: flex;
+    justify-content: space-between;
     background-color: green;
     width: 100%;
-    gap: 5px;
+    position: sticky;
+    top: 0px;
+    z-index: 9;
 }
 
 .navbar div{
+    display: flex;
+    gap: 5px;
+}
+
+.navbar div div{
     width: fit-content;
     border-radius: 5px 5px 0px 0px;
     padding: 2px;
     margin-bottom: 0px;
+}
+
+.logout{
+    background-color: red;
+    color: white;
+    width: fit-content;
+    border-radius: 5px 5px 0px 0px;
+    padding: 2px;
+    margin-bottom: 0px;
+    margin-right: 1px;
 }
 
 a{
@@ -37,12 +55,16 @@ a{
 .header{
     background-color: #391C10;
     color: white;
-    width: 100%;   
+    width: 100%;
+    position: fixed;
+    top: 54px;
+    z-index: 2;
 }
 
 .title{
     display: flex;
     justify-content: space-between;
+
 }
 
 #searchBar{
@@ -70,8 +92,12 @@ a{
     display: flex;
     flex-direction: column;
     background-color: black;
-    height: 86vh;
+    height: 90vh;
+    width: 200px;
     justify-content: space-around;
+    position: fixed;
+    top: 110px;
+    z-index: 1;
 }
 
 .sideNav a{
@@ -88,9 +114,11 @@ a{
     margin-top: 20px;
     position: sticky;
     padding: 15px;
+    margin-left: 210px;
+    margin-top: 160px;
 }
 
-.addProducts{
+.addButton{
     background-color: #391C10;
     color: white;
     padding: 10px;
@@ -105,6 +133,8 @@ a{
 
 .contentRight{
     width: 75%;
+    margin-top: 110px;
+    margin-right: 20px;
 }
 
 .productTopRow{
@@ -157,13 +187,17 @@ a{
 }
 
 .remove button{
+    margin-top: 5px !important;
+}
+
+#remove{
     height: fit-content;
     width: fit-content;
     background-color: red;
     color: white;
-    margin-top: none !important;
     font-weight: bold;
     border: 1px solid red;
+    margin-top: 10px;
 }
 
 .list{
@@ -171,9 +205,40 @@ a{
     border: 1px solid lightgray;
     border-radius: 15px;
     padding: 20px;
-    width: 800px;
+    width: 75%;
     display: flex;
     flex-direction: column;
+    margin-left: 215px;
+}
+
+.storageList{
+    margin-top: 70px;
+    width: 100%;
+}
+
+.storageList h1{
+    margin-left: 210px;
+}
+
+.storageList h2{
+    margin-left: 210px;
+}
+
+.storageList form button{
+    margin-left: 210px;
+}
+
+.supplierList{
+    margin-top: 70px;
+    width: 100%;
+}
+
+.supplierList h1{
+    margin-left: 210px;
+}
+
+.supplierList h2{
+    margin-left: 210px;
 }
 
 .list div{
@@ -181,8 +246,13 @@ a{
     display: flex;
 }
 
+.storageSupplyButton{
+    margin-left: 210px;
+}
 
-.warningPage{
-    position: relative;
-    
+
+.sTitle{
+    display: flex;
+    justify-content: space-between;
+    width: 85%;
 }

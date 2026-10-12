@@ -4,6 +4,25 @@
 
     require_once __DIR__ . '/../config/database.php';
 
+    function isGuest()
+    { 
+    return ! isset ($_SESSION['user']);
+    }
+
+    function isAdmin()
+    { if(isset($_SESSION['user'])){
+        if($_SESSION ['user']['role'] === 'admin'){
+            return true;
+        }
+    }
+    return false;
+    }
+
+    if(!isAdmin()){
+        header('Location: /../inventory.php');
+        exit;
+    }
+
     $stmt = $pdo->query(
         "SELECT supplier.id AS supplier_id,
         supplier.name AS supplier_name,
@@ -37,6 +56,22 @@
             'product_cost' => $supplier['product_cost']
         ];
     }
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $remove = $_POST['remove'];
+        $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
+
+        $deleteAssociations = $pdo->prepare("DELETE FROM supplier_products WHERE supplier_id = ?");
+        $deleteAssociations->execute([$id]);
+        $updateStorage = $pdo->prepare("UPDATE storage SET supplier_id = NULL WHERE supplier_id = ?");
+        $updateStorage->execute([$id]);
+        $delete = $pdo->prepare("DELETE FROM supplier WHERE id = ?");
+        $delete->execute([$id]);
+
+
+        header('Location: ' . $_SERVER['PHP_SELF']);
+        exit;
+   }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,19 +83,26 @@
 </head>
 <body>
     <div class="navbar">
-        <a href="../cashier.php">
-            <div class="notCurrent">
-                <p>Cashier</p>
-            </div>
-        </a>
-        <a href="../inventory.php">
-            <div class="notCurrent">
-                <p>Inventory</p>
-            </div>
-        </a>
-        <a href="admin/dashboard.php">
-            <div class="current">
-                <p>Admin</p>
+        <div>
+            <a href="/../cashier.php">
+                <div class="notCurrent">
+                    <p>Cashier</p>
+                </div>
+            </a>
+            <a href="/../inventory.php">
+                <div class="notCurrent">
+                    <p>Inventory</p>
+                </div>
+            </a>
+            <a href="dashboard.php">
+                <div class="current">
+                    <p>Admin</p>
+                </div>
+            </a>
+        </div>
+        <a href="/../logout.php">
+            <div class="logout">
+                <p>Logout</p>
             </div>
         </a>
     </div>
@@ -75,14 +117,22 @@
         </div>
     <div class="content">
         <div class="supplierList">
+            <div class="title">
+                    <h2>Supplier List</h2>
+                </div>
+            <div>
+                <a href="addSuppliers.php" class="storageSupplyButton">
+                    <button class="addButton" type="button">Add Supplier</button>
+                </a>
+            </div>
             <?php foreach($groupedSuppliers as $supplier): ?>
-                <h1>
-                    Supplier ID: <?= htmlspecialchars($supplier['supplier_id']) ?>
-                </h1>
-
-                <h2>
-                    Supplier Name: <?= htmlspecialchars($supplier['supplier_name']) ?>
-                </h2>
+                <div class= "sTitle">
+                    <h2><?= htmlspecialchars($supplier['supplier_name']) ?> </h2>
+                    <form method="POST">
+                        <input type="hidden" name="id" value="<?= (int)$supplier['supplier_id'] ?>">
+                        <button name="remove" value="remove" id="remove">X</button>
+                    </form>
+                </div>
 
                 <div class="list">
                     <div>
@@ -93,17 +143,9 @@
 
                     <?php foreach($supplier['products'] as $product): ?>
                         <div>
-                            <div>
-                                <p><?= htmlspecialchars($product['product_id']) ?></p>
-                            </div>
-
-                            <div>
-                                <p><?= htmlspecialchars($product['product_name']) ?></p>
-                            </div>
-
-                            <div>
-                                <p><?= htmlspecialchars($product['product_cost']) ?></p>
-                            </div>
+                            <div><p><?= htmlspecialchars($product['product_id']) ?></p></div>
+                            <div><p><?= htmlspecialchars($product['product_name']) ?></p></div>
+                            <div><p><?= htmlspecialchars($product['product_cost']) ?></p></div>
                         </div>
                     <?php endforeach; ?>
                 </div>

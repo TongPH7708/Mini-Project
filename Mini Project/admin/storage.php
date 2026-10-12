@@ -3,6 +3,24 @@
 
     require_once __DIR__ . '/../config/database.php';
 
+    function isGuest()
+    { 
+    return ! isset ($_SESSION['user']);
+    }
+
+    function isAdmin()
+    { if(isset($_SESSION['user'])){
+        if($_SESSION ['user']['role'] === 'admin'){
+            return true;
+        }
+    }
+    return false;
+    }
+
+    if(!isAdmin()){
+        header('Location: /../inventory.php');
+        exit;
+    }
 
    $stmt = $pdo->query("SELECT
     storage.id AS storage_id,
@@ -17,7 +35,7 @@
     ORDER BY storage.id;"); 
    $storages = [];
 
-while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $storageId = $row['storage_id'];
 
     if (!isset($storages[$storageId])) {
@@ -40,23 +58,24 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
 
    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $button = $_POST['action'];
         $remove = $_POST['remove'];
-        $addProducts = $_POST['addProducts'];
         $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
+        $check = $pdo->prepare("SELECT COUNT(*) FROM products WHERE storage_id = ?");
+        $check->execute([$id]);
+
+        $productCount = (int) $check->fetchColumn();
+
+          if ($productCount > 0) {
+            $_SESSION['error'] = 'Cannot remove storage because it contains products.';
+        } else {
+            $delete = $pdo->prepare("DELETE FROM storage WHERE id = ?");
+            $delete->execute([$id]);
+            $_SESSION['success'] = 'Storage removed successfully.';
+        }
 
 
         header('Location: ' . $_SERVER['PHP_SELF']);
         exit;
-
-        if ($remove === 'remove'){
-            $delete = $pdo -> prepare(
-                "DELETE FROM storage WHERE id = ?"
-            );
-            $delete->execute([$id]);
-        }
-
-
    }
     
 ?>
@@ -70,19 +89,26 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 </head>
 <body>
     <div class="navbar">
-        <a href="../cashier.php">
-            <div class="notCurrent">
-                <p>Cashier</p>
-            </div>
-        </a>
-        <a href="../inventory.php">
-            <div class="notCurrent">
-                <p>Inventory</p>
-            </div>
-        </a>
-        <a href="admin/dashboard.php">
-            <div class="current">
-                <p>Admin</p>
+        <div>
+            <a href="/../cashier.php">
+                <div class="notCurrent">
+                    <p>Cashier</p>
+                </div>
+            </a>
+            <a href="/../inventory.php">
+                <div class="notCurrent">
+                    <p>Inventory</p>
+                </div>
+            </a>
+            <a href="dashboard.php">
+                <div class="current">
+                    <p>Admin</p>
+                </div>
+            </a>
+        </div>
+        <a href="/../logout.php">
+            <div class="logout">
+                <p>Logout</p>
             </div>
         </a>
     </div>
@@ -97,27 +123,39 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         </div>
         <div class="content">
             <div class="storageList">
+                <div class="title">
+                    <h2>Storage List</h2>
+                </div>
+                <div>
+                    <a href="addStorage.php" class="storageSupplyButton">
+                        <button class="addButton" type="button">Add Storage</button>
+                    </a>
+                </div>
                     <?php foreach($storages as $storage): ?>
-                        <h1><?=htmlspecialchars($storage['storage_name'])?></h1>
-                        <h2>Space:<?=htmlspecialchars($storage['space'])?></h2>
-                        <?php foreach($storage['products'] as $product): ?>
-                            <div class="list">
-                                <div>
-                                    <div><p>ID</p></div>
-                                    <div><p>Products</p></div>
-                                    <div><p>Quantity</p></div>
-                                </div>
-                                <div>
-                                    <div><p><?= htmlspecialchars($product['product_id'])?></p></div>
-                                    <div><p><?= htmlspecialchars($product['product_name'])?></p></div> 
-                                    <div><p><?= htmlspecialchars($product['quantity'])?> </p></div>
-                                </div>
-                                
-                                <div>
-                                    <button type="submit" name="remove" value="remove" id="remove">X</button>
-                                </div>
+                        <div class="sTitle">
+                            <div>
+                                <h1><?=htmlspecialchars($storage['storage_name'])?></h1>
+                                <h2>Space:<?=htmlspecialchars($storage['space'])?></h2>
                             </div>
-                        <?php endforeach; ?>
+                            <form method="POST">
+                                <input type="hidden" name="id" value="<?= (int)$storage['storage_id'] ?>">
+                                <button name="remove" value="remove" id="remove">X</button>
+                            </form>
+                        </div>
+                        <div class="list">
+                            <div>
+                                <div><p>ID</p></div>
+                                <div><p>Products</p></div>
+                                <div><p>Quantity</p></div>
+                            </div>
+                            <?php foreach($storage['products'] as $product): ?>
+                                    <div>
+                                        <div><p><?= htmlspecialchars($product['product_id'])?></p></div>
+                                        <div><p><?= htmlspecialchars($product['product_name'])?></p></div> 
+                                        <div><p><?= htmlspecialchars($product['quantity'])?> </p></div>
+                                    </div>
+                            <?php endforeach; ?>
+                        </div>
                     <?php endforeach; ?>
                 </div>
         </div>

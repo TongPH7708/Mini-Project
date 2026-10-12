@@ -5,6 +5,7 @@ body{
     align-items: center;
     width: 100%;
     height: 100vh;
+    background-color: #391C10;
 }
 
 .loginCard{
@@ -12,11 +13,11 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: white;
-    padding: 20px;
+    background-color: #F7EFE0;
+    padding: 50px;
     border: 1px solid black;
     border-radius: 15px;
-    box-shadow: 5px 5px 10px lightgray;
+    box-shadow: 5px 5px 10px #391C10;
 }
 
 .loginCard h1{
@@ -30,6 +31,7 @@ body{
     border: 1px solid black;
     border-radius: 5px;
     margin-top: 10px;
+    width: 106%;
 }
 
 .loginForm{
@@ -56,16 +58,17 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: white;
+    background-color: #F7EFE0;;
     padding: 20px;
     border: 1px solid black;
     border-radius: 15px;
-    box-shadow: 5px 5px 10px lightgray;
+    box-shadow: 5px 5px 10px #391C10;
 }
 
 .registerInput{
     display: flex;
     flex-direction: column;
+    font-size: 1.5em;
 }
 
 .registerInput input{
@@ -73,4 +76,18 @@ body{
     border-radius: 5px;
     border: 1px solid black;
     width: 95%;
+}
+
+.registerCard button{
+    background-color: black;
+    color: white;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-top: 15px;
+    width: 106%;
+}
+
+.errorMsg{
+    color: red;
 }

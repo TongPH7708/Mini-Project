@@ -4,21 +4,38 @@ body{
     justify-content: center;
     align-items: center;
     margin: 0;
+    overflow: hidden;
 }
 
 .navbar{
     height: 10%;
     display: flex;
+    justify-content: space-between;
     background-color: green;
     width: 100%;
     gap: 5px;
 }
 
 .navbar div{
+    display: flex;
+    gap: 5px;
+}
+
+.navbar div div{
     width: fit-content;
     border-radius: 5px 5px 0px 0px;
     padding: 2px;
     margin-bottom: 0px;
+}
+
+.logout{
+    background-color: red;
+    color: white;
+    width: fit-content;
+    border-radius: 5px 5px 0px 0px;
+    padding: 2px;
+    margin-bottom: 0px;
+    margin-right: 1px;
 }
 
 a{

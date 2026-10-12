@@ -1,7 +1,8 @@
 let itemIdentifier = document.getElementById("item-identifier");
 let itemName= document.getElementById("item-name");
 let itemPrice = document.getElementById("item-price");
-let itemQuantity = document.getElementById("item-quantity")
+let itemQuantity = document.getElementById("item-quantity");
+let soldItems = [];
 
 itemIdentifier.addEventListener("keydown", function(insert) {
 
@@ -61,7 +62,12 @@ itemQuantity.addEventListener("keydown", function(insert) {
 
             let quantity= Number(itemQuantity.value);
             let price = Number(itemPrice.value);
-            let amount = calculateAmount(quantity, price)
+            let amount = calculateAmount(quantity, price);
+
+            soldItems.push({
+            id: Number(itemIdentifier.value),
+            quantity: quantity
+            });
 
 
             let list =document.getElementById("cashierList")
@@ -104,10 +110,20 @@ function calculateGrandTotal() {
 }
 
 
-let refresh = document.getElementById("refresh");
+let endTransaction = document.getElementById("endTransaction");
 
-refresh.addEventListener("click", function() {
+endTransaction.addEventListener("click", async function () {
+    
 
+    const response = await fetch("cashier.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                items: soldItems
+            })
+        });
     
     document.getElementById("cashierList").innerHTML = "";
 
@@ -125,3 +141,23 @@ refresh.addEventListener("click", function() {
 
 });
 
+let refresh= document.getElementById("refresh")
+
+refresh.addEventListener("click", function () {
+    
+    
+    document.getElementById("cashierList").innerHTML = "";
+
+    
+    grandTotal.innerHTML = "<p>RM0.00</p>";
+
+    
+    itemIdentifier.value = "";
+    itemName.value = "";
+    itemPrice.value = "";
+    itemQuantity.value = "";
+
+    
+    itemIdentifier.focus();
+
+});

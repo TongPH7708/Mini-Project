@@ -56,50 +56,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Storage</title>
-    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="add.css">
 </head>
 <body>
+    <div class="card">
 
-    <h2>Add New Storage</h2>
+        <h2>Add New Storage</h2>
 
-    <?php if ($error !== ''): ?>
-        <p style="color: red;">
-            <?= htmlspecialchars($error) ?>
-        </p>
-    <?php endif; ?>
+        <?php if ($error !== ''): ?>
+            <p style="color: red;">
+                <?= htmlspecialchars($error) ?>
+            </p>
+        <?php endif; ?>
 
-    <form method="POST">
+        <form method="POST">
 
-        <label for="name">Storage Name:</label>
-        <input type="text" id="name" name="name" maxlength="255" required
-            value="<?= htmlspecialchars($_POST['name'] ?? '') ?>">
-        <br><br>
+            <label for="name">Storage Name:</label>
+            <input type="text" id="name" name="name" maxlength="255" required
+                value="<?= htmlspecialchars($_POST['name'] ?? '') ?>">
+            <br><br>
 
-        <label for="space">Available Space:</label>
-        <input type="number" id="space" name="space" min="0" step="1" required
-            value="<?= htmlspecialchars($_POST['space'] ?? '0') ?>">
-        <br><br>
+            <label for="space">Available Space:</label>
+            <input type="number" id="space" name="space" min="0" step="1" required
+                value="<?= htmlspecialchars($_POST['space'] ?? '0') ?>">
+            <br><br>
 
-        <label for="supplier_id">Supplier (Optional):</label>
-        <select id="supplier_id" name="supplier_id">
-            <option value="">No supplier selected</option>
+            <label for="supplier_id">Supplier (Optional):</label>
+            <select id="supplier_id" name="supplier_id">
+                <option value="">No supplier selected</option>
 
-            <?php foreach ($suppliers as $supplier): ?>
-                <option
-                    value="<?= (int)$supplier['id'] ?>"
-                    <?= (string)($_POST['supplier_id'] ?? '') ===
-                        (string)$supplier['id'] ? 'selected' : '' ?>
-                >
-                    <?= htmlspecialchars($supplier['name']) ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-        <br><br>
+                <?php foreach ($suppliers as $supplier): ?>
+                    <option
+                        value="<?= (int)$supplier['id'] ?>"
+                        <?= (string)($_POST['supplier_id'] ?? '') ===
+                            (string)$supplier['id'] ? 'selected' : '' ?>
+                    >
+                        <?= htmlspecialchars($supplier['name']) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+            <br><br>
 
-        <button type="submit">Save Storage</button>
-        <a href="storage.php">Cancel</a>
+            <button type="submit">Save Storage</button>
+            <a href="storage.php">Cancel</a>
 
-    </form>
-
+        </form>
+    </div>
 </body>
 </html>
