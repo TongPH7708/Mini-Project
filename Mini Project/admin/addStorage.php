@@ -11,15 +11,13 @@ $suppliers = $pdo->query("SELECT id, name FROM supplier ORDER BY name ASC")->fet
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name'] ?? '');
-    $space = filter_input(INPUT_POST, 'space', FILTER_VALIDATE_INT);
 
     $supplierId = ($_POST['supplier_id'] ?? '') === ''
         ? null
         : filter_input(INPUT_POST, 'supplier_id', FILTER_VALIDATE_INT);
 
     if (
-        $name === '' ||
-        $space === false || $space === null || $space < 0
+        $name === ''
     ) {
         $error = 'Please enter valid storage details.';
     } elseif (
@@ -30,13 +28,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         try {
             $stmt = $pdo->prepare(
-                "INSERT INTO storage (name, space, supplier_id)
-                 VALUES (?, ?, ?)"
+                "INSERT INTO storage (name, supplier_id)
+                 VALUES (?, ?)"
             );
 
             $stmt->execute([
                 $name,
-                $space,
                 $supplierId
             ]);
 
@@ -76,10 +73,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 value="<?= htmlspecialchars($_POST['name'] ?? '') ?>">
             <br><br>
 
-            <label for="space">Available Space:</label>
-            <input type="number" id="space" name="space" min="0" step="1" required
-                value="<?= htmlspecialchars($_POST['space'] ?? '0') ?>">
-            <br><br>
 
             <label for="supplier_id">Supplier (Optional):</label>
             <select id="supplier_id" name="supplier_id">

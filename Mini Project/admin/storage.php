@@ -42,7 +42,6 @@
         $storages[$storageId] = [
             'storage_id' => $row['storage_id'],
             'storage_name' => $row['storage_name'],
-            'space' => $row['space'],
             'products' => []
         ];
     }
@@ -135,7 +134,6 @@
                         <div class="sTitle">
                             <div>
                                 <h1><?=htmlspecialchars($storage['storage_name'])?></h1>
-                                <h2>Space:<?=htmlspecialchars($storage['space'])?></h2>
                             </div>
                             <form method="POST">
                                 <input type="hidden" name="id" value="<?= (int)$storage['storage_id'] ?>">
