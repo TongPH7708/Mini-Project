@@ -55,7 +55,7 @@
 
    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $button = $_POST['action'];
-        $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
+        $id = $_POST['id'];
         $number = $_POST["number"];
 
         if ($button === 'plus') {

@@ -51,7 +51,7 @@
         $button = $_POST['action'];
         $remove = $_POST['remove'];
         $addProducts = $_POST['addProducts'];
-        $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
+        $id = $_POST['id'];
         $number = $_POST["number"];
 
         if ($remove === 'remove'){
@@ -127,6 +127,7 @@
                 <div>
                     <h3>Sort by:</h3>
                     <ul class="sortList">
+                        <a href="?sort=id_asc">ID</a>
                         <a href="?sort=category_name_asc">Category A-Z</a>
                         <a href="?sort=category_name_desc">Category Z-A</a>  
                         <a href="?sort=price_asc">Price (Low to High)</a> 
