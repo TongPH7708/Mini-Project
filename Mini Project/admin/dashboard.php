@@ -152,7 +152,7 @@
                     <div class="quantity"><p>Quantity</p></div>
                     <div class="cost"><p>Category</p></div>
                     <div class="price"><p>Price</p></div>
-                    <div><p>Instock/Outstock</p></div>
+                    <div><p>Adj. In/Out</p></div>
                     <div><p>Remove Product</p></div>
                 </div>
                 <div class="productsGrid">

@@ -25,7 +25,6 @@
    $stmt = $pdo->query("SELECT
     storage.id AS storage_id,
     storage.name AS storage_name,
-    storage.space,
     products.id AS product_id,
     products.name AS product_name,
     products.quantity

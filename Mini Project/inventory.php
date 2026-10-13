@@ -139,7 +139,7 @@
                 <div class="supplier"><p>Supplier</p></div>
                 <div class="storage"><p>Storage</p></div>
                 <div class="price"><p>Price</p></div>
-                <div><p>Add/Remove</p></div>
+                <div><p>Adj. In/Out</p></div>
             </div>
             <div class="productsGrid">
                 <?php foreach($products as $product): ?>
